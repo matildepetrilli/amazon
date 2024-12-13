@@ -6,12 +6,11 @@ const image = document.getElementById('image');
 const description = document.getElementById('description');
 const btndelete = document.getElementById('delete');
 const btnreset = document.getElementById('reset');
-const btnsave = document.getElementById('save');
+const btnSave = document.getElementById('save');
 const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzViZmVlY2QyMjA3MTAwMTVkZTJmNTEiLCJpYXQiOjE3MzQwODIyODgsImV4cCI6MTczNTI5MTg4OH0.cpnMbkkMKJpRdbVm-5rvnyh206R4uVoZw27uv1U6MBs'
 const URL = "https://striveschool-api.herokuapp.com/api/put-your-endpoint-here/";
 
-let myprodoct = [];
-
+let newproducts=[];
 class Prodoct {
     constructor(_Name, _brand, _price, _image, _description) {
         this.Name = _Name;
@@ -22,8 +21,14 @@ class Prodoct {
     }
 }
 
-const addItem = async () => {
-    let newProducts =new Products(
+
+btnSave.addEventListener('click', function (e) {
+    e.preventDefault();
+   addItem();
+});
+
+  
+    let newProducts =new Prodoct(
         Name.value,
         brand.value,
         image.value,
@@ -41,13 +46,14 @@ const addItem = async () => {
             
         });
         if (!response.ok) {
-            throw new Error('Errore nella risposta: ' + response.status);
+            throw new Error('Errore nella risposta: ');
         }
 
         const data = await response.json();
         console.log('Prodotto aggiunto:', data);
     } catch (error) {
-        console.log("Errore durante l'invio del prodotto:", error);
+        console.log("Errore :", error);
     }
-    productForm.reset();
-};
+    
+
+
