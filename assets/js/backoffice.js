@@ -1,5 +1,5 @@
 const myForm = document.getElementById('myForm');
-const name = document.getElementById('productname');
+const Name = document.getElementById('productname');
 const brand = document.getElementById('productbrand');
 const price = document.getElementById('productprice');
 const image = document.getElementById('image');
@@ -12,9 +12,9 @@ const URL = "https://striveschool-api.herokuapp.com/api/put-your-endpoint-here/"
 
 let myprodoct = [];
 
-class prodoct {
-    constructor(_name, _brand, _price, _image, _description) {
-        this.name = _name;
+class Prodoct {
+    constructor(_Name, _brand, _price, _image, _description) {
+        this.Name = _Name;
         this.brand = _brand;
         this.price = _price;
         this.image = _image;
@@ -22,31 +22,32 @@ class prodoct {
     }
 }
 
-let prodoctMod;
-
-function init() {
-    btnsave.setAttribute('disabled', 'true');
-    readlist();
-}
-
-async function readlist() {
+const addItem = async () => {
+    let newProducts =new Products(
+        Name.value,
+        brand.value,
+        image.value,
+        price.value,
+        description.value
+    );
     try {
-        let response = await fetch(apiKey, {
+        let response = await fetch(URL, {
             method: 'POST',
+            body: JSON.stringify(newProducts),
             headers: {
-                Authorization: `bearer ${URL}`,
+                Authorization: ` ${apiKey}`,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(myproduct),
+            
         });
         if (!response.ok) {
-            throw new Error('Error: ' + response.status);
+            throw new Error('Errore nella risposta: ' + response.status);
         }
+
         const data = await response.json();
         console.log('Prodotto aggiunto:', data);
     } catch (error) {
-        console.log(error);
+        console.log("Errore durante l'invio del prodotto:", error);
     }
-
     productForm.reset();
 };
