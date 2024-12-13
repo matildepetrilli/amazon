@@ -31,10 +31,10 @@ function init() {
 
 async function readlist() {
     try {
-        let response = await fetch(URL, {
+        let response = await fetch(apiKey, {
             method: 'POST',
             headers: {
-                Authorization: `bearer ${apiKey}`,
+                Authorization: `bearer ${URL}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(myproduct),
